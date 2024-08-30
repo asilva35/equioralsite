@@ -1,11 +1,11 @@
-.Home{
+.Page{
     height: calc(100vh - 104px);
     position: relative;
     overflow-x: hidden;
 }
 
-@media only screen and (max-width: 599px) {
-    .Home{
+@media only screen and (max-width: 991px) {
+    .Page{
         height: auto;
     }   
 }
@@ -19,9 +19,10 @@
     flex-direction: row;
     position: relative;
     z-index: 2;
+    justify-content: space-between;
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 600px) {
     .Container{
         flex-direction: column;
         height: auto;
@@ -29,82 +30,73 @@
     }
 }
 
-.Home.dark{
+.Page.dark{
     background-color: var(--black-color);
     color: var(--white-color);
 }
 
-.Home.light{
+.Page.light{
     background-color: var(--white-color);
     color: var(--black-color);
 }
 
-.BG{
-    position: absolute;
-    top: 50%;
-    left: 60%;
-    transform: translate(-50%,-50%);
-    max-height: calc(100vh - 104px);
-    width: 40vw;
-    min-width: 160px;
-    max-width: 683px;
-    z-index: 1;
-    overflow-y: hidden;
+.About{
+    display: flex;
+    flex-direction: row;
 }
 
-@media only screen and (max-width: 767px) {
-    .BG{
-        top: 200px;
-        left: 50%;
-        transform: translate(-50%,0);
-        max-height: calc(100vh);
-        width: 50vw;
-        max-width: 683px;
-    }   
+@media only screen and (max-width: 991px) {
+    .About{
+        flex-direction: column-reverse;
+    }
 }
 
-@media only screen and (max-width: 400px) {
-    .BG{
-        top: 220px;
-        left: 50%;
-        transform: translate(-50%,0);
-        max-height: calc(100vh);
-        width: 60vw;
-        max-width: 683px;
-    }   
+.AboutText{
+    display: flex;
+    flex-direction: column;
+    gap:40px;
+    width: 300px;
+    margin-bottom: 40px;
+    min-width: 200px;
 }
 
-.BG img{
-    height: auto;
+@media only screen and (max-width: 380px) {
+    .AboutText{
+        width: 100%;
+    }
+}
+
+.AboutText img{
+    border-radius: 10px;
     width: 100%;
-    object-fit: cover;
+    height: auto;
 }
 
-.Info{
+.Page.dark .AboutText img{
+    border: solid 1px #fff;
+}
+
+.Page.light .AboutText img{
+    border: solid 1px #000;
+}
+
+.AboutList{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+
+.Column{
     height: 100%;
-    width: 50%;
+    width: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 40px;
 }
 
-@media only screen and (max-width: 767px) {
-    .Info{
-        width: 100%;
-        height: 80vh;
-        align-items: center;
-    }
-}
-
-@media only screen and (max-width: 400px) {
-    .Info{
-        height: 70vh;
-    }
-}
-
 @media only screen and (max-width: 235px) {
-    .Info {
+    .Column {
         align-items: flex-start;
         padding: 10px;
     }
@@ -129,9 +121,10 @@
     justify-content: space-between;
     flex: 1;
     align-items: flex-start;
+    justify-content: flex-end;
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 600px) {
     .InfoLinks{
         justify-content: flex-end;
         align-items: center;
@@ -145,13 +138,13 @@
     }
 }
 
-.Info .titles{
+.Column .titles{
     display: flex;
     flex-direction: column;
     gap:20px;
 }
 
-.Info .titles h1{
+.Column .titles h1{
     font-size: 16px;
     line-height: 100%;
     font-weight: 400;
@@ -159,54 +152,68 @@
     color:rgb(248,167,9);
 }
 
-.Info .titles h2{
+.Column .titles h2{
     font-size: 70px;
     line-height: 100%;
     font-weight: 400;
+    max-width: 300px;
 }
 
-.Info p{
+.Column p{
     font-size: 18px;
     line-height: 100%;
     font-weight: 400;
-    max-width: 400px;
+    max-width: 500px;
 }
 
-.Home.dark .Info p{
+.Page.dark .Column p{
     color:#959595;
 }
 
-.Home.light .Info p{
+.Page.light .Column p{
     color:#666;
 }
 
 @media only screen and (max-width: 767px) {
-    .Info .titles h1{
+    .Column .titles h1{
+        font-size: 14px;
+    }
+    .Column .titles h2{
+        font-size: 50px;
+    }
+
+    .Column p{
+        font-size: 16px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .Column .titles h1{
         font-size: 12px;
     }
-    .Info .titles h2{
+    .Column .titles h2{
         font-size: 35px;
     }
 
-    .Info p{
+    .Column p{
         font-size: 16px;
     }
 }
 
 @media only screen and (max-width: 235px) {
-    .Info .titles h1{
+    .Column .titles h1{
         font-size: 10px;
     }
-    .Info .titles h2{
+    .Column .titles h2{
         font-size: 25px;
     }
 
-    .Info p{
+    .Column p{
         font-size: 12px;
     }
 }
 
-.Info .DirectLinks{
+.Column .DirectLinks{
     display: flex;
     flex-direction: row;
     gap:30px;
@@ -214,26 +221,26 @@
 }
 
 @media only screen and (max-width: 767px) {
-    .Info .DirectLinks{
+    .Column .DirectLinks{
         margin-top:0px;
     }   
 }
 
-.Info .DirectLinks a:hover{
+.Column .DirectLinks a:hover{
     opacity: 0.8;
 }
 
-.Info .DirectLinks img{
+.Column .DirectLinks img{
     border-radius: 10px;
     min-width: 60px;
     height: auto;
 }
 
-.Home.dark .Info .DirectLinks img{
+.Page.dark .Column .DirectLinks img{
     border: solid 1px #fff;
 }
 
-.Home.light .Info .DirectLinks img{
+.Page.light .Column .DirectLinks img{
     border: solid 1px #000;
 }
 
@@ -265,11 +272,11 @@
     align-items: center;
 }
 
-.Home.dark .Whatsapp .Icon{
+.Page.dark .Whatsapp .Icon{
     border: solid 1px #fff;
 }
 
-.Home.light .Whatsapp .Icon{
+.Page.light .Whatsapp .Icon{
     border: solid 1px #000;
 }
 
@@ -333,7 +340,7 @@
 
 .Stories{
     height: 100%;
-    width: 50%;
+    width: 150px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -343,7 +350,7 @@
     flex-wrap: nowrap;
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 600px) {
     .Stories{
         flex-direction: row;
         width: 100%;
@@ -379,11 +386,11 @@
     height: 60px;
 }
 
-.Home.dark .Stories .ImgCnt{
+.Page.dark .Stories .ImgCnt{
     background-color: var(--black-color);
 }
 
-.Home.light .Stories .ImgCnt{
+.Page.light .Stories .ImgCnt{
     background-color: var(--white-color);
 }
 

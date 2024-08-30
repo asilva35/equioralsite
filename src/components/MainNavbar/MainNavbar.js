@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   Navbar,
   NavbarBrand,
@@ -15,9 +15,15 @@ import styles from './MainNavbar.module.css';
 import { ThemeLightIcon, HamburguerIcon, ThemeDarkIcon } from '@virtel/icons';
 import { AppContext } from '@/context/AppContext';
 
-export default function MainNavbar({ linkActive = '/' }) {
+export default function MainNavbar() {
+  const [linkActive, seLinkActive] = React.useState('/');
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const { state, dispatch } = useContext(AppContext);
+
+  useEffect(() => {
+    if (!document) return;
+    seLinkActive(document.location.pathname);
+  }, []);
 
   const toggleTheme = () => {
     dispatch({
