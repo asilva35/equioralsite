@@ -67,7 +67,7 @@ export default function Home() {
                       fill={state.theme === 'dark' ? '#fff' : '#000'}
                     />
                   </div>
-                  <span>Contáctame por Whatsapp</span>
+                  <span>Contáctame por Whatsapp!</span>
                 </Link>
               </div>
             </div>
