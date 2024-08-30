@@ -18,6 +18,7 @@ export default function Home() {
             width={683}
             height={707}
             alt=""
+            priority
           />
         </div>
         <div className={styles.Container}>
