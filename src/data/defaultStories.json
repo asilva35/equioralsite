@@ -1,0 +1,152 @@
+[
+  {
+    "media": {
+      "url": "/assets/images/stories/story-01.png",
+      "width": 73,
+      "height": 73,
+      "alt": ""
+    },
+    "name": {
+      "text": "Clientes"
+    },
+    "link": {
+      "label": "Ver Más",
+      "url": "#"
+    }
+  },
+  {
+    "media": {
+      "url": "/assets/images/stories/story-02.png",
+      "width": 73,
+      "height": 73,
+      "alt": ""
+    },
+    "name": {
+      "text": "Cronolo..."
+    },
+    "link": {
+      "label": "Ver Más",
+      "url": "#"
+    }
+  },
+  {
+    "media": {
+      "url": "/assets/images/stories/story-03.png",
+      "width": 73,
+      "height": 73,
+      "alt": ""
+    },
+    "name": {
+      "text": "Fractura..."
+    },
+    "link": {
+      "label": "Ver Más",
+      "url": "#"
+    }
+  },
+  {
+    "media": {
+      "url": "/assets/images/stories/story-04.png",
+      "width": 73,
+      "height": 73,
+      "alt": ""
+    },
+    "name": {
+      "text": "Reducci..."
+    },
+    "link": {
+      "label": "Ver Más",
+      "url": "#"
+    }
+  },
+  {
+    "media": {
+      "url": "/assets/images/stories/story-05.png",
+      "width": 73,
+      "height": 73,
+      "alt": ""
+    },
+    "name": {
+      "text": "Incisivos"
+    },
+    "link": {
+      "label": "Ver Más",
+      "url": "#"
+    }
+  },
+  {
+    "media": {
+      "url": "/assets/images/stories/story-01.png",
+      "width": 73,
+      "height": 73,
+      "alt": ""
+    },
+    "name": {
+      "text": "Clientes"
+    },
+    "link": {
+      "label": "Ver Más",
+      "url": "#"
+    }
+  },
+  {
+    "media": {
+      "url": "/assets/images/stories/story-02.png",
+      "width": 73,
+      "height": 73,
+      "alt": ""
+    },
+    "name": {
+      "text": "Cronolo..."
+    },
+    "link": {
+      "label": "Ver Más",
+      "url": "#"
+    }
+  },
+  {
+    "media": {
+      "url": "/assets/images/stories/story-03.png",
+      "width": 73,
+      "height": 73,
+      "alt": ""
+    },
+    "name": {
+      "text": "Fractura..."
+    },
+    "link": {
+      "label": "Ver Más",
+      "url": "#"
+    }
+  },
+  {
+    "media": {
+      "url": "/assets/images/stories/story-04.png",
+      "width": 73,
+      "height": 73,
+      "alt": ""
+    },
+    "name": {
+      "text": "Reducci..."
+    },
+    "link": {
+      "label": "Ver Más",
+      "url": "#"
+    }
+  },
+  {
+    "media": {
+      "url": "/assets/images/stories/story-05.png",
+      "width": 73,
+      "height": 73,
+      "alt": ""
+    },
+    "name": {
+      "text": "Incisivos"
+    },
+    "link": {
+      "label": "Ver Más",
+      "url": "#"
+    }
+  }
+]

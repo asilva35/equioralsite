@@ -1,6 +1,6 @@
 import styles from '@/styles/ServiciosCasos.module.css';
 import MainNavbar from '@/components/MainNavbar/MainNavbar';
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { AppContext } from '@/context/AppContext';
 import ImageComp from '@/components/ImageComp/ImageComp';
 import Link from 'next/link';
@@ -11,7 +11,8 @@ import {
   ThemeLightIcon,
   WhatsappIcon,
 } from '@virtel/icons';
-import posts from '@/data/defaultPosts.json';
+import postsData from '@/data/defaultPosts.json';
+import storiesData from '@/data/defaultStories.json';
 import Stories from '@/components/Stories/Stories';
 
 export default function ServiciosCasos() {
@@ -71,7 +72,7 @@ export default function ServiciosCasos() {
         </div>
         <div className={styles.MainContent}>
           <div className={styles.Container}>
-            {posts.map((post, i) => (
+            {postsData.map((post, i) => (
               <div className={styles.Post} key={i}>
                 <div className={styles.HeaderPost}>
                   <div className={styles.LogoSmall}>
@@ -152,7 +153,12 @@ export default function ServiciosCasos() {
             </div>
           </div>
           <div className={`${styles.SidebarRightBody}`}>
-            <Stories theme={state.theme} />
+            <Stories
+              theme={state.theme}
+              edgeOffset={40}
+              mobileBreakpoint={599}
+              data={storiesData}
+            />
           </div>
           <div className={`${styles.CopyRight} hide-xs hide-sm hide-md`}>
             <p>

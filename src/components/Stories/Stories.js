@@ -4,76 +4,85 @@ import Link from 'next/link';
 import ImageComp from '@/components/ImageComp/ImageComp';
 import { NextFilledIcon, PrevFilledIcon } from '@virtel/icons';
 
-export default function Stories({ theme }) {
-  let clientX;
-  let clientY;
-  let deltaX;
-  let deltaY;
-
+export default function Stories({
+  data,
+  theme,
+  mobileBreakpoint = 599,
+  edgeOffset = 0,
+}) {
   const storiesRef = useRef();
+  const [currentPos, setCurrentPos] = useState();
+  const [clientX, setClientX] = useState();
+  const [compWidth, setCompWidth] = useState();
+  const [screenWidth, setScreenWidth] = useState();
+  const [translateValue, setTranslateValue] = useState(0);
   const [showPreNav, setShowPreNav] = useState(false);
   const [showNextNav, setShowNextNav] = useState(false);
-  const [countTranslate, setCountTranslate] = useState(0);
+  const [startingSwipe, setStartingSwipe] = useState(false);
+  const [maxDistance, setMaxDistance] = useState(0);
+  const [minDistance, setMinDistance] = useState(0);
+
+  useEffect(() => {
+    if (!window) return;
+    if (!storiesRef.current) return;
+    const boundingStories = storiesRef.current.getBoundingClientRect();
+    setMaxDistance(
+      (boundingStories.width - (window.screen.width - edgeOffset)) * -1
+    );
+    setMinDistance(0);
+    setCompWidth(boundingStories.width);
+    setScreenWidth(window.screen.width);
+  }, []);
 
   const onTouchStart = (e) => {
-    clientX = e.touches[0].clientX;
-    clientY = e.touches[0].clientY;
+    if (screenWidth > mobileBreakpoint) return;
+    if (compWidth <= screenWidth) return;
+    setClientX(e.touches[0].clientX);
+    setStartingSwipe(true);
   };
 
   const onTouchMove = (e) => {
-    deltaX = e.changedTouches[0].clientX - clientX;
-    deltaY = e.changedTouches[0].clientY - clientY;
+    if (!startingSwipe) return;
+    const position = e.nativeEvent.touches[0].clientX;
+    const distance = position - clientX;
+    swipe(currentPos + distance);
   };
 
   const onTouchEnd = (e) => {
-    const boundingStories = storiesRef.current.getBoundingClientRect();
-    let newpos = boundingStories.left + deltaX;
-    if (window.screen.width > 599) return;
-    if (boundingStories.width <= window.screen.width) return;
-    if (newpos < (boundingStories.width - (window.screen.width - 40)) * -1) {
-      newpos = (boundingStories.width - (window.screen.width - 40)) * -1;
-    }
-    if (newpos > 0) {
-      newpos = 0;
-    }
-    storiesRef.current.style.transform = `translate(${newpos}px,0)`;
-    setCountTranslate((c) => c + 1);
+    setStartingSwipe(false);
   };
 
   useEffect(() => {
-    const boundingStories = storiesRef.current.getBoundingClientRect();
-    if (boundingStories.width > window.screen.width) {
-      setShowNextNav(true);
-    }
-    if (boundingStories.left < 0) {
-      setShowPreNav(true);
-    }
-  }, [countTranslate]);
+    setShowNextNav(translateValue > maxDistance && compWidth > screenWidth);
+    setShowPreNav(translateValue < minDistance);
+    let timer = setTimeout(() => {
+      if (storiesRef.current) {
+        const boundingStories = storiesRef.current.getBoundingClientRect();
+        setCurrentPos(boundingStories.left);
+      }
+    }, 300);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [translateValue, compWidth, screenWidth]);
 
   const onClickPrevNav = () => {
-    const boundingStories = storiesRef.current.getBoundingClientRect();
-    let newpos = boundingStories.left + 60;
-    if (newpos < (boundingStories.width - (window.screen.width - 40)) * -1) {
-      newpos = (boundingStories.width - (window.screen.width - 40)) * -1;
-    }
-    if (newpos > 0) {
-      newpos = 0;
-    }
-    storiesRef.current.style.transform = `translate(${newpos}px,0)`;
-    setCountTranslate((c) => c + 1);
+    swipe(currentPos + screenWidth);
   };
 
   const onClickNextNav = () => {
-    const boundingStories = storiesRef.current.getBoundingClientRect();
-    let newpos = boundingStories.left - 80;
-    if (newpos < (boundingStories.width - (window.screen.width - 40)) * -1) {
-      newpos = (boundingStories.width - (window.screen.width - 40)) * -1;
+    swipe(currentPos - screenWidth);
+  };
+
+  const swipe = (_translateValue) => {
+    if (_translateValue < maxDistance) {
+      _translateValue = maxDistance;
     }
-    if (newpos > 0) {
-      newpos = 0;
+    if (_translateValue > minDistance) {
+      _translateValue = minDistance;
     }
-    storiesRef.current.style.transform = `translate(${newpos}px,0)`;
-    setCountTranslate((c) => c + 1);
+    storiesRef.current.style.transform = `translate(${_translateValue}px,0)`;
+    setTranslateValue(_translateValue);
   };
   return (
     <div
@@ -83,96 +92,26 @@ export default function Stories({ theme }) {
       onTouchEnd={onTouchEnd}
     >
       <div ref={storiesRef} className={styles.Stories}>
-        <Link href="#" className={styles.Story}>
-          <div className={styles.Border}>
-            <div className={styles.ImgCnt}>
-              <ImageComp
-                src="/assets/images/stories/story-01.png"
-                width={73}
-                height={73}
-                alt=""
-              />
+        {data.map((story, i) => (
+          <Link href={story.link.url} className={styles.Story} key={i}>
+            <div className={styles.Border}>
+              <div className={styles.ImgCnt}>
+                <ImageComp
+                  src={story.media.url}
+                  width={story.media.width}
+                  height={story.media.height}
+                  alt={story.media.alt}
+                />
+              </div>
             </div>
-          </div>
-          <div className={`${styles.StoryName} hide-xs hide-sm hide-md`}>
-            Clientes
-          </div>
-          <div className={`${styles.StoryLink} hide-xs hide-sm hide-md`}>
-            Ver más
-          </div>
-        </Link>
-        <Link href="#" className={styles.Story}>
-          <div className={styles.Border}>
-            <div className={styles.ImgCnt}>
-              <ImageComp
-                src="/assets/images/stories/story-02.png"
-                width={73}
-                height={73}
-                alt=""
-              />
+            <div className={`${styles.StoryName} hide-xs hide-sm hide-md`}>
+              {story.name.text}
             </div>
-          </div>
-          <div className={`${styles.StoryName} hide-xs hide-sm hide-md`}>
-            Cronolo...
-          </div>
-          <div className={`${styles.StoryLink} hide-xs hide-sm hide-md`}>
-            Ver más
-          </div>
-        </Link>
-        <Link href="#" className={styles.Story}>
-          <div className={styles.Border}>
-            <div className={styles.ImgCnt}>
-              <ImageComp
-                src="/assets/images/stories/story-03.png"
-                width={73}
-                height={73}
-                alt=""
-              />
+            <div className={`${styles.StoryLink} hide-xs hide-sm hide-md`}>
+              {story.link.label}
             </div>
-          </div>
-          <div className={`${styles.StoryName} hide-xs hide-sm hide-md`}>
-            Fractura...
-          </div>
-          <div className={`${styles.StoryLink} hide-xs hide-sm hide-md`}>
-            Ver más
-          </div>
-        </Link>
-        <Link href="#" className={styles.Story}>
-          <div className={styles.Border}>
-            <div className={styles.ImgCnt}>
-              <ImageComp
-                src="/assets/images/stories/story-04.png"
-                width={73}
-                height={73}
-                alt=""
-              />
-            </div>
-          </div>
-          <div className={`${styles.StoryName} hide-xs hide-sm hide-md`}>
-            Reducci...
-          </div>
-          <div className={`${styles.StoryLink} hide-xs hide-sm hide-md`}>
-            Ver más
-          </div>
-        </Link>
-        <Link href="#" className={styles.Story}>
-          <div className={styles.Border}>
-            <div className={styles.ImgCnt}>
-              <ImageComp
-                src="/assets/images/stories/story-05.png"
-                width={73}
-                height={73}
-                alt=""
-              />
-            </div>
-          </div>
-          <div className={`${styles.StoryName} hide-xs hide-sm hide-md`}>
-            Incisivos
-          </div>
-          <div className={`${styles.StoryLink} hide-xs hide-sm hide-md`}>
-            Ver más
-          </div>
-        </Link>
+          </Link>
+        ))}
       </div>
       {showPreNav && (
         <div className={styles.PrevNav} onClick={onClickPrevNav}>
