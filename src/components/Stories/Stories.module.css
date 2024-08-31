@@ -1,0 +1,130 @@
+.StoriesContainer{
+    width: 100%;
+    position: relative;
+}
+
+.Stories{
+    height: 100%;
+    width: 244px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    padding: 40px 0;
+    gap: 20px;
+    flex-wrap: nowrap;
+}
+
+@media only screen and (max-width: 991px) {
+    .Stories{
+        width: 80px;
+    }
+}
+
+@media only screen and (max-width: 599px) {
+    .Stories{
+        flex-direction: row;
+        width: 100%;
+        justify-content: center;
+        padding: 0 40px;
+    }
+}
+
+@media only screen and (max-width: 470px) {
+    .StoriesContainer{
+        height: 80px;
+        overflow: hidden;
+    }
+    .Stories{
+        padding: 10px 0;
+        justify-content: flex-start;
+        position: absolute;
+        top:0;
+        left: 20px;
+        width: auto;
+        transition: all 0.2s ease-in-out;
+    }
+}
+
+
+.Stories a:hover{
+    opacity: 0.8;
+}
+
+.Stories .ImgCnt{
+    border-radius: 50%;
+    padding: 5px;
+    width: 60px;
+    height: 60px;
+}
+
+.StoriesContainer.dark .ImgCnt{
+    background-color: var(--black-color);
+}
+
+.StoriesContainer.light .ImgCnt{
+    background-color: var(--white-color);
+}
+
+.Stories img{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+.Story{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+}
+
+.Story .Border{
+    background: rgb(248,167,9);
+    background: -moz-linear-gradient(180deg, rgba(248,167,9,1) 0%, rgba(109,72,15,1) 100%);
+    background: -webkit-linear-gradient(180deg, rgba(248,167,9,1) 0%, rgba(109,72,15,1) 100%);
+    background: linear-gradient(180deg, rgba(248,167,9,1) 0%, rgba(109,72,15,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f8a709",endColorstr="#6d480f",GradientType=1); 
+    padding: 1px;
+    border-radius: 50%;
+}
+
+.StoryName{
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 100%;
+    opacity: 0.8;
+}
+
+.StoryLink{
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 100%;
+    color: #F8A709;
+}
+
+.PrevNav{
+    position: absolute;
+    top:50%;
+    left:10px;
+    transform: translate(0,-50%);
+    cursor: pointer;
+}
+
+.PrevNav:active{
+    opacity: 0.8;
+}
+
+.NextNav{
+    position: absolute;
+    top:50%;
+    right:10px;
+    transform: translate(0,-50%);
+    cursor: pointer;
+}
+
+.NextNav:active{
+    opacity: 0.8;
+}

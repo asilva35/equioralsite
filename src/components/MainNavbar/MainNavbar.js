@@ -15,7 +15,7 @@ import styles from './MainNavbar.module.css';
 import { ThemeLightIcon, HamburguerIcon, ThemeDarkIcon } from '@virtel/icons';
 import { AppContext } from '@/context/AppContext';
 
-export default function MainNavbar() {
+export default function MainNavbar({ className }) {
   const [linkActive, seLinkActive] = React.useState('/');
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const { state, dispatch } = useContext(AppContext);
@@ -39,7 +39,7 @@ export default function MainNavbar() {
   ];
   return (
     <Navbar
-      className={`${styles.MainNavbar} ${styles[state.theme]}`}
+      className={`${styles.MainNavbar} ${styles[state.theme]} ${className}`}
       onMenuOpenChange={setIsMenuOpen}
     >
       <NavbarContent className={styles.LogoCnt}>
@@ -86,7 +86,7 @@ export default function MainNavbar() {
             Contacto
           </Button>
         </NavbarItem>
-        <NavbarItem className="hide-xs hide-sm">
+        <NavbarItem>
           <Button
             className={styles.ThemeBtn}
             isIconOnly
