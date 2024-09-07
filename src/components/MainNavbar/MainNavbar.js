@@ -33,9 +33,14 @@ export default function MainNavbar({ className }) {
   };
 
   const menuItems = [
-    { label: 'Inicio', href: '/' },
-    { label: 'Acerca', href: '/quienes-somos' },
-    { label: 'Servicios y Casos', href: '/servicios-y-casos' },
+    { label: 'Inicio', href: '/', className: '' },
+    { label: 'Acerca', href: '/quienes-somos', className: '' },
+    { label: 'Servicios y Casos', href: '/servicios-y-casos', className: '' },
+    {
+      label: 'Contáctanos',
+      href: '/contactanos',
+      className: 'hide-lg hide-xl',
+    },
   ];
   return (
     <Navbar
@@ -69,7 +74,7 @@ export default function MainNavbar({ className }) {
         justify="end"
       >
         {menuItems.map((item, index) => (
-          <NavbarItem key={`nav-${item}-${index}`}>
+          <NavbarItem key={`nav-${item}-${index}`} className={item.className}>
             <Link
               className={item.href === linkActive ? styles.active : ''}
               href={item.href}
@@ -114,7 +119,7 @@ export default function MainNavbar({ className }) {
 
       <NavbarMenu className={`${styles.MobileMenu} ${styles[state.theme]}`}>
         {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
+          <NavbarMenuItem key={`${item}-${index}`} className={item.className}>
             <Link href={item.href} size="lg">
               {item.label}
             </Link>

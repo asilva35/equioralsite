@@ -1,0 +1,111 @@
+.Carousel{
+    width: 100%;
+    height: auto;
+    align-items: center;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    position: relative;
+}
+
+.Carousel.dark{
+    background-color: var(--white-color);
+}
+
+.Carousel.light{
+    background-color: var(--black-color);
+}
+
+@media only screen and (max-width: 470px) {
+    .Carousel{
+        width:100%;
+        aspect-ratio: 4/5;
+        height: auto;
+    }
+}
+
+.CarouselWrapper{
+    width: fit-content;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.3s ease-in-out;
+    transform: translateX(0);
+}
+
+.ImageCnt{
+    width: min(470px, 100vw);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ImageCnt img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.PrevNav{
+    position: absolute;
+    top:50%;
+    left:10px;
+    transform: translate(0,-50%);
+    cursor: pointer;
+}
+
+.PrevNav:active{
+    opacity: 0.8;
+}
+
+.NextNav{
+    position: absolute;
+    top:50%;
+    right:10px;
+    transform: translate(0,-50%);
+    cursor: pointer;
+}
+
+.NextNav:active{
+    opacity: 0.8;
+}
+
+.CirclesMarks{
+    position: absolute;
+    width: 96px;
+    height: 30px;
+    bottom: 10px;
+    left: 50%;
+    transform: translate(-50%,0);
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+}
+
+.CircleMark{
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #ccc;
+    flex: 1;
+    flex-shrink: 1;
+    flex-basis: 0%;
+    flex-basis: 6px;
+    flex-shrink: 0;
+    position: relative;
+    transition: all 0.3s linear;
+}
+
+.CircleMark.active{
+    background-color: #F8A709;
+}

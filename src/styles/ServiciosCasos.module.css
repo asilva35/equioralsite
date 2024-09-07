@@ -112,10 +112,11 @@
 
 .MediaPost{
     width: 100%;
-    height: 585px;
-    display: flex;
-    justify-content: center;
+    height: auto;
     align-items: center;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    position: relative;
 }
 
 .Page.dark .MediaPost{
@@ -132,6 +133,29 @@
         aspect-ratio: 4/5;
         height: auto;
     }
+}
+
+.MediaPostWrapper{
+    width: fit-content;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.3s ease-in-out;
+    transform: translateX(-100px);
+}
+
+.MediaPostWrapper .ImageCnt{
+    width: min(470px, 100vw);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .MediaPost img{

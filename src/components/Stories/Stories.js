@@ -43,7 +43,9 @@ export default function Stories({
 
   const onTouchMove = (e) => {
     if (!startingSwipe) return;
-    const position = e.nativeEvent.touches[0].clientX;
+    const position = e.nativeEvent.touches
+      ? e.nativeEvent.touches[0].clientX
+      : e.nativeEvent.clientX;
     const distance = position - clientX;
     swipe(currentPos + distance);
   };

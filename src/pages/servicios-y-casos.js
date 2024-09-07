@@ -14,6 +14,7 @@ import {
 import postsData from '@/data/defaultPosts.json';
 import storiesData from '@/data/defaultStories.json';
 import Stories from '@/components/Stories/Stories';
+import Carousel from '@/components/Carousel/Carousel';
 
 export default function ServiciosCasos() {
   const { state, dispatch } = useContext(AppContext);
@@ -94,14 +95,7 @@ export default function ServiciosCasos() {
                   </div>
                   <span>Equioral</span>
                 </div>
-                <div className={styles.MediaPost}>
-                  <ImageComp
-                    src={post.media.url}
-                    width={post.media.width}
-                    height={post.media.height}
-                    alt={post.media.alt}
-                  />
-                </div>
+                <Carousel theme={state.theme} data={post.media} />
                 <div className={styles.ActionsPost}>
                   <div className={styles.Left}>
                     <div className={styles.Action}>

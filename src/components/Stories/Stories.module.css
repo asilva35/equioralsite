@@ -1,6 +1,9 @@
 .StoriesContainer{
     width: 100%;
     position: relative;
+    height: calc(62px * 5 + 140px);
+    max-height: 80vh;
+    overflow: hidden;
 }
 
 .Stories{
@@ -13,18 +16,23 @@
     padding: 40px 0;
     gap: 20px;
     flex-wrap: nowrap;
+    transition: all .3s ease-in-out;
 }
 
 @media only screen and (max-width: 991px) {
+    
     .Stories{
         width: 80px;
     }
 }
 
 @media only screen and (max-width: 599px) {
+    .StoriesContainer{
+        height: 62px;
+    }
     .Stories{
         flex-direction: row;
-        width: 100%;
+        width: fit-content;
         justify-content: center;
         padding: 0 40px;
     }
@@ -32,17 +40,16 @@
 
 @media only screen and (max-width: 470px) {
     .StoriesContainer{
-        height: 80px;
-        overflow: hidden;
-    }
-    .Stories{
         padding: 10px 0;
+    }
+    
+    .Stories{
         justify-content: flex-start;
         position: absolute;
         top:0;
         left: 20px;
         width: auto;
-        transition: all .3s ease-in-out;
+        padding: 0;
     }
 }
 
