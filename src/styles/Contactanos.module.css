@@ -1,0 +1,501 @@
+.Page{
+    height: auto;
+    min-height: calc(100vh - 104px);
+    position: relative;
+    overflow-x: hidden;
+}
+
+@media only screen and (max-width: 991px) {
+    .Page{
+        height: auto;
+    }   
+}
+
+.Container{
+    height: 100%;
+    width: 100%;
+    max-width: 1400px;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    z-index: 2;
+    justify-content: space-between;
+}
+
+@media only screen and (max-width: 600px) {
+    .Container{
+        flex-direction: column;
+        height: auto;
+        padding-bottom: 60px;
+    }
+}
+
+.Page.dark{
+    background-color: var(--black-color);
+    color: var(--white-color);
+}
+
+.Page.light{
+    background-color: var(--white-color);
+    color: var(--black-color);
+}
+
+.Left{
+    display: flex;
+    flex-direction: row;
+}
+
+@media only screen and (max-width: 991px) {
+    .Left{
+        flex-direction: column-reverse;
+    }
+}
+.Left img{
+    border-radius: 50%;
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+
+
+.Page.dark img{
+    filter:drop-shadow(0 0 0.75rem #242222)
+}
+
+.Page.light img{
+    filter: drop-shadow(0 0 0.75rem #dcdada);
+}
+
+.AboutList{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+
+.Column{
+    height: auto;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 40px;
+    gap:40px;
+}
+
+@media only screen and (max-width: 235px) {
+    .Column {
+        align-items: flex-start;
+        padding: 10px;
+    }
+}
+
+.InfoText{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+    flex: 1;
+}
+
+@media only screen and (max-width: 767px) {
+    .InfoText{
+        gap:20px;
+    }   
+}
+
+.InfoLinks{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 40px 0;
+}
+
+@media only screen and (max-width: 600px) {
+    .InfoLinks{
+        justify-content: flex-end;
+        align-items: center;
+        gap: 40px;
+    }
+}
+
+@media only screen and (max-width: 235px) {
+    .InfoLinks {
+        align-items: flex-start;
+    }
+}
+
+.Column .titles{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+}
+
+.Column .titles h1{
+    font-size: 16px;
+    line-height: 100%;
+    font-weight: 400;
+    font-family: var(--primary-font);
+    color:rgb(248,167,9);
+}
+
+.Column .titles h2{
+    font-size: 35px;
+    line-height: 100%;
+    font-weight: 400;
+    max-width: 300px;
+}
+
+.Column p{
+    font-size: 18px;
+    line-height: 100%;
+    font-weight: 400;
+    max-width: 500px;
+}
+
+.Page.dark .Column p{
+    color:#959595;
+}
+
+.Page.light .Column p{
+    color:#666;
+}
+
+@media only screen and (max-width: 767px) {
+    .Column .titles h1{
+        font-size: 14px;
+    }
+    .Column .titles h2{
+        font-size: 50px;
+    }
+    .Column p{
+        font-size: 16px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .Column .titles h1{
+        font-size: 12px;
+    }
+    .Column .titles h2{
+        font-size: 35px;
+    }
+
+    .Column p{
+        font-size: 16px;
+    }
+}
+
+@media only screen and (max-width: 300px) {
+    .Column .titles h1{
+        font-size: 10px;
+    }
+    .Column .titles h2{
+        font-size: 30px;
+    }
+
+    .Column p{
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 235px) {
+    .Column .titles h1{
+        font-size: 10px;
+    }
+    .Column .titles h2{
+        font-size: 25px;
+    }
+
+    .Column p{
+        font-size: 12px;
+    }
+}
+
+.Column .DirectLinks{
+    display: flex;
+    flex-direction: row;
+    gap:30px;
+    margin-top:30px;
+}
+
+@media only screen and (max-width: 767px) {
+    .Column .DirectLinks{
+        margin-top:0px;
+    }   
+}
+
+.Column .DirectLinks a:hover{
+    opacity: 0.8;
+}
+
+.Column .DirectLinks img{
+    border-radius: 10px;
+    min-width: 60px;
+    height: auto;
+}
+
+.Page.dark .Column .DirectLinks img{
+    border: solid 1px #fff;
+}
+
+.Page.light .Column .DirectLinks img{
+    border: solid 1px #000;
+}
+
+
+.Whatsapp a{
+    display: flex;
+    flex-direction: row;
+    gap:10px;
+    align-items: center;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 400px) {
+    .Whatsapp a{
+        font-size: 12px;
+    }   
+}
+
+.Whatsapp a:hover{
+    opacity: 0.8;
+}
+
+.Whatsapp .Icon{
+    border-radius:50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Page.dark .Whatsapp .Icon{
+    border: solid 1px #fff;
+}
+
+.Page.light .Whatsapp .Icon{
+    border: solid 1px #000;
+}
+
+@media only screen and (max-width: 400px) {
+    .Whatsapp .Icon{
+        width: 12px;
+        height: 12px;
+    }   
+}
+
+.Whatsapp span{
+    text-decoration: underline;
+}
+
+.CopyRight{
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: 40px;
+}
+
+.CopyRight p{
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 100%;
+    width: 100%;
+    text-align: left;
+    min-width: 175px;
+}
+
+@media only screen and (max-width: 991px) {
+    .CopyRight{
+        left: 100%;
+        min-width: 300px;
+        padding-right: 40px;
+    }
+    .CopyRight p{
+        text-align: left;
+    }
+}
+
+@media only screen and (max-width: 599px) {
+    .CopyRight{
+        left: 50%;
+        min-width: unset;
+        width: 100%;
+        padding: 0px 0;
+    }
+    .CopyRight p{
+        text-align: left;
+    }
+}
+
+.Stories{
+    height: 100%;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    padding: 40px;
+    gap: 20px;
+    flex-wrap: nowrap;
+}
+
+@media only screen and (max-width: 600px) {
+    .Stories{
+        flex-direction: row;
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .Stories{
+        justify-content: flex-start;
+        padding: 40px 10px;
+    }
+}
+
+.Stories a{
+    background: rgb(248,167,9);
+    background: -moz-linear-gradient(180deg, rgba(248,167,9,1) 0%, rgba(109,72,15,1) 100%);
+    background: -webkit-linear-gradient(180deg, rgba(248,167,9,1) 0%, rgba(109,72,15,1) 100%);
+    background: linear-gradient(180deg, rgba(248,167,9,1) 0%, rgba(109,72,15,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f8a709",endColorstr="#6d480f",GradientType=1); 
+    padding: 1px;
+    border-radius: 50%;
+}
+
+.Stories a:hover{
+    opacity: 0.8;
+}
+
+.Stories .ImgCnt{
+    border-radius: 50%;
+    padding: 5px;
+    width: 60px;
+    height: 60px;
+}
+
+.Page.dark .Stories .ImgCnt{
+    background-color: var(--black-color);
+}
+
+.Page.light .Stories .ImgCnt{
+    background-color: var(--white-color);
+}
+
+.Stories img{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+.Form{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+}
+
+.GroupField{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+
+.GroupField input{
+    background-color: transparent;
+}
+
+.Page.dark .GroupField .Label{
+    color: #ccc!important;
+}
+
+.Page.light .GroupField .Label{
+    color: #292929!important;
+}
+
+.Page.dark .GroupField .Input{
+    color: #fff!important;
+}
+
+.Page.light .GroupField .Input{
+    color: #000000!important;
+}
+
+.Page.dark .GroupField .InputInnerWrapper{
+    color: #fff!important;
+}
+
+.Page.light .GroupField .InputInnerWrapper{
+    color: #000000!important;
+}
+
+.Page.dark .GroupField .InputWrapper{
+    background: transparent!important;
+    border: solid 1px #fff;
+}
+
+.Page.light .GroupField .InputWrapper{
+    background: transparent!important;
+    border: solid 1px #000000;
+}
+
+.GroupField .InputWrapperError{
+    background: transparent!important;
+    border: solid 1px #f04040!important;
+}
+
+.GroupField .ErrorMessage{
+    color:#f04040!important;
+    font-size: 12px;
+    line-height: 100%;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.Form .BtnSend{
+    background-color: #F8A709;
+    width: 100px;
+}
+
+.FormBottom{
+    display: flex;
+    flex-direction: row;
+    gap: 40px;   
+    align-items: center;
+}
+
+@media only screen and (max-width: 500px) {
+    .FormBottom{
+        flex-direction: column;
+    }
+}
+
+.Notification{
+    color: red!important;
+    font-size: 14px!important;
+}
+
+.Notification.success{
+    color:green!important;
+}
+
+.StoriesCnt{
+    width: 150px;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 40px;
+}
+
+@media only screen and (max-width: 600px) {
+    .StoriesCnt{
+        flex-direction: row;
+        width: 100%;
+        justify-content: flex-start;
+        padding: 40px 10px;
+    }
+}

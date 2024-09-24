@@ -338,64 +338,18 @@
     }
 }
 
-.Stories{
-    height: 100%;
-    width: 150px;
+.StoriesCnt{
+    width: 50%;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-end;
-    padding: 40px;
-    gap: 20px;
-    flex-wrap: nowrap;
+    justify-content: flex-end;
+    padding: 0 40px;
 }
 
 @media only screen and (max-width: 600px) {
-    .Stories{
+    .StoriesCnt{
         flex-direction: row;
         width: 100%;
-        justify-content: center;
-    }
-}
-
-@media only screen and (max-width: 500px) {
-    .Stories{
         justify-content: flex-start;
         padding: 40px 10px;
     }
-}
-
-.Stories a{
-    background: rgb(248,167,9);
-    background: -moz-linear-gradient(180deg, rgba(248,167,9,1) 0%, rgba(109,72,15,1) 100%);
-    background: -webkit-linear-gradient(180deg, rgba(248,167,9,1) 0%, rgba(109,72,15,1) 100%);
-    background: linear-gradient(180deg, rgba(248,167,9,1) 0%, rgba(109,72,15,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f8a709",endColorstr="#6d480f",GradientType=1); 
-    padding: 1px;
-    border-radius: 50%;
-}
-
-.Stories a:hover{
-    opacity: 0.8;
-}
-
-.Stories .ImgCnt{
-    border-radius: 50%;
-    padding: 5px;
-    width: 60px;
-    height: 60px;
-}
-
-.Page.dark .Stories .ImgCnt{
-    background-color: var(--black-color);
-}
-
-.Page.light .Stories .ImgCnt{
-    background-color: var(--white-color);
-}
-
-.Stories img{
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
 }

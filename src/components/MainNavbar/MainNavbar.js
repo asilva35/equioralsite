@@ -15,7 +15,7 @@ import styles from './MainNavbar.module.css';
 import { ThemeLightIcon, HamburguerIcon, ThemeDarkIcon } from '@virtel/icons';
 import { AppContext } from '@/context/AppContext';
 
-export default function MainNavbar({ className }) {
+export default function MainNavbar({ className, session }) {
   const [linkActive, seLinkActive] = React.useState('/');
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const { state, dispatch } = useContext(AppContext);
@@ -36,6 +36,11 @@ export default function MainNavbar({ className }) {
     { label: 'Inicio', href: '/', className: '' },
     { label: 'Acerca', href: '/quienes-somos', className: '' },
     { label: 'Servicios y Casos', href: '/servicios-y-casos', className: '' },
+    {
+      label: session?.user ? 'Logout' : 'Login',
+      href: session?.user ? '/close-session' : '/login',
+      className: '',
+    },
     {
       label: 'Contáctanos',
       href: '/contactanos',
@@ -87,7 +92,7 @@ export default function MainNavbar({ className }) {
 
       <NavbarContent justify="end" className={styles.Right}>
         <NavbarItem className="hide-xs hide-sm">
-          <Button as={Link} href="#" className={styles.ContactBtn}>
+          <Button as={Link} href="/contactanos" className={styles.ContactBtn}>
             Contacto
           </Button>
         </NavbarItem>

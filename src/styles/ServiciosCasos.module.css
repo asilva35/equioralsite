@@ -45,6 +45,12 @@
     gap:20px;
 }
 
+.SidebarLeft .Top .Nav{
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 100%;
+}
+
 .Page.dark .SidebarLeft{
     border-right:solid 1px #797979;
 }
@@ -90,7 +96,7 @@
 .HeaderPost{
     padding: 10px 0;
     width: 100%;
-    height: 55px;
+    height: 62px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -108,6 +114,19 @@
     font-size: 12px;
     line-height: 100%;
     font-weight: 600;
+}
+
+.HeaderPost .LogoSmall{
+    width: auto;
+    min-width: 41px;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.HeaderPost .LogoSmallLabel{
+    width: auto;
+    min-width: 60px;
+    height: 50%;
 }
 
 .MediaPost{
@@ -162,6 +181,15 @@
     width: 100%;
     height: auto;
     object-fit: cover;
+}
+
+.CarouselBlank{
+    width: 100%;
+    height: auto;
+    align-items: center;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    position: relative;
 }
 
 .ActionsPost{
@@ -258,7 +286,7 @@
     flex-direction: row;
     gap:10px;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 @media only screen and (max-width: 400px) {
@@ -329,6 +357,18 @@
     width: 100%;
 }
 
+@media only screen and (max-width: 991px) {
+    .SidebarRightBody{
+        padding: 40px 20px;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .SidebarRightBody{
+        padding: 40px 20px;
+    }
+}
+
 .SidebarRightHeader{
     display: flex;
     flex-direction: row;
@@ -344,18 +384,18 @@
 }
 
 .CopyRight{
-    height: 60px;
+    height: auto;
     max-width: 300px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding-bottom: 40px;
+    padding: 40px 0;
 }
 
 .CopyRight p{
     font-size: 12px;
     font-weight: 400;
-    line-height: 100%;
+    line-height: 150%;
     width: 100%;
     text-align: left;
     min-width: 175px;
@@ -367,4 +407,14 @@
 
 .BtnTheme:active{
     opacity: 0.8;
+}
+
+.BtnLoadMore{
+    background: rgb(109,72,15);
+    background: -moz-linear-gradient(0deg, rgba(109,72,15,1) 0%, rgba(248,167,9,1) 100%);
+    background: -webkit-linear-gradient(0deg, rgba(109,72,15,1) 0%, rgba(248,167,9,1) 100%);
+    background: linear-gradient(0deg, rgba(109,72,15,1) 0%, rgba(248,167,9,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6d480f",endColorstr="#f8a709",GradientType=1); 
+    color: #fff;
+    font-weight: 600;
 }

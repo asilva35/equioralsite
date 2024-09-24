@@ -1,0 +1,78 @@
+.AddPostButton{
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 9;
+}
+
+.AddPostButton button{
+    background: rgb(109,72,15);
+    background: -moz-linear-gradient(0deg, rgba(109,72,15,1) 0%, rgba(248,167,9,1) 100%);
+    background: -webkit-linear-gradient(0deg, rgba(109,72,15,1) 0%, rgba(248,167,9,1) 100%);
+    background: linear-gradient(0deg, rgba(109,72,15,1) 0%, rgba(248,167,9,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6d480f",endColorstr="#f8a709",GradientType=1); 
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+}
+.InputGroup{
+  display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.Inputs{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.MediaUploadInput {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+  .MediaUploadInputLabel {
+    font-size: 1em;
+    font-weight: 500;
+    color: white;
+    background-color: black;
+    display: inline-block;
+    cursor: pointer;
+    outline: 1px dotted #000;
+    outline: -webkit-focus-ring-color auto 5px;
+    padding: 0.5em 0.75em;
+    background-color: #0070f0;
+    border-radius: 0.25em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .label:focus,
+  .label:hover {
+    opacity: 0.8;
+  }
+
+  .PhotoPreviews{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+
+  .PhotoPreview{
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+  }
+
+  .PhotoPreview img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }

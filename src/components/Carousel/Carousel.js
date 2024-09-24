@@ -40,7 +40,7 @@ export default function Carousel({ data, theme, edgeOffset = 0 }) {
     setMinDistance(0);
     setCompWidth(getWidthRef(wrapperRef));
     setCarouselWidth(getWidthRef(carouselRef));
-    setTotalSlides(data.length || 0);
+    setTotalSlides(data && data.length ? data.length : 0);
   }, []);
 
   const onTouchStart = (e) => {
@@ -138,6 +138,7 @@ export default function Carousel({ data, theme, edgeOffset = 0 }) {
     wrapperRef.current.style.transform = `translateX(${_translateValue}px)`;
     setTranslateValue(_translateValue);
   };
+
   return (
     <div
       className={`${styles.Carousel} ${styles[theme]}`}
@@ -147,16 +148,12 @@ export default function Carousel({ data, theme, edgeOffset = 0 }) {
       ref={carouselRef}
     >
       <div ref={wrapperRef} className={styles.CarouselWrapper}>
-        {data.map((media, i) => (
-          <div className={styles.ImageCnt} key={i}>
-            <ImageComp
-              src={media.url}
-              width={media.width}
-              height={media.height}
-              alt={media.alt}
-            />
-          </div>
-        ))}
+        {data &&
+          data.map((media, i) => (
+            <div className={styles.ImageCnt} key={i}>
+              <ImageComp src={media.url} width={480} height={480} alt={''} />
+            </div>
+          ))}
       </div>
       {showPreNav && (
         <div className={styles.PrevNav} onClick={onClickPrevNav}>
@@ -168,15 +165,22 @@ export default function Carousel({ data, theme, edgeOffset = 0 }) {
           <NextFilledIcon fill={theme === 'dark' ? '#fff' : '#000'} size={24} />
         </div>
       )}
-      <div ref={circlesMarksRef} className={styles.CirclesMarks}>
-        {data.map((media, i) => (
-          <div
-            className={`${styles.CircleMark} ${
-              currentSlide === i + 1 ? styles.active : ''
-            }`}
-            key={i}
-          ></div>
-        ))}
+      <div
+        ref={circlesMarksRef}
+        className={`${styles.CirclesMarks} ${
+          data && data.length < 6 ? styles.alignCenter : ''
+        }`}
+      >
+        {data &&
+          data.length > 1 &&
+          data.map((media, i) => (
+            <div
+              className={`${styles.CircleMark} ${
+                currentSlide === i + 1 ? styles.active : ''
+              }`}
+              key={i}
+            ></div>
+          ))}
       </div>
     </div>
   );

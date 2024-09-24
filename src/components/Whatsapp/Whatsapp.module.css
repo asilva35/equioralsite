@@ -1,0 +1,37 @@
+.Whatsapp a {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  @media only screen and (max-width: 400px) {
+    .Whatsapp a {
+      font-size: 12px;
+    }
+  }
+
+  .Whatsapp a:hover {
+    opacity: 0.8;
+  }
+  .Icon {
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .Icon.bordered.dark {
+    border: solid 1px #fff;
+  }
+
+  .Icon.bordered.light {
+    border: solid 1px #000;
+  }
+
+  .Whatsapp{
+      text-decoration: underline;
+      font-size: 12px;
+    }

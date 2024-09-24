@@ -1,0 +1,267 @@
+.Post{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap:15px;
+    margin-bottom: 20px;
+}
+
+.Page.dark .Post{
+    border-bottom: solid 1px #fff;
+}
+
+.Page.light .Post{
+    border-bottom: solid 1px #000;
+}
+
+.HeaderPost{
+    padding: 10px 0;
+    width: 100%;
+    height: 62px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap:10px;
+}
+
+@media only screen and (max-width: 470px) {
+    .HeaderPost{
+        padding: 0 10px;
+    }
+}
+
+.LogoContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.LogoContainer span{
+    font-size: 12px;
+    line-height: 100%;
+    font-weight: 600;
+}
+
+.LogoContainer .LogoSmall{
+    width: auto;
+    min-width: 41px;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.LogoContainer .LogoSmallLabel{
+    width: auto;
+    min-width: 60px;
+    height: 50%;
+}
+
+.Menu{
+    width: 40px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.MediaPost{
+    width: 100%;
+    height: auto;
+    align-items: center;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    position: relative;
+}
+
+.Page.dark .MediaPost{
+    background-color: var(--white-color);
+}
+
+.Page.light .MediaPost{
+    background-color: var(--black-color);
+}
+
+@media only screen and (max-width: 470px) {
+    .MediaPost{
+        width:100%;
+        aspect-ratio: 4/5;
+        height: auto;
+    }
+}
+
+.MediaPostWrapper{
+    width: fit-content;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.3s ease-in-out;
+    transform: translateX(-100px);
+}
+
+.MediaPostWrapper .ImageCnt{
+    width: min(470px, 100vw);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.MediaPost img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.CarouselBlank{
+    width: 100%;
+    height: auto;
+    align-items: center;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    position: relative;
+}
+
+.ActionsPost{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+@media only screen and (max-width: 470px) {
+    .ActionsPost{
+        padding: 0 20px;
+    }
+}
+
+.ActionsPost .Left{
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 0;
+    gap:20px;
+}
+
+@media only screen and (max-width: 235px) {
+    .ActionsPost .Left{
+        gap:5px;
+    }
+}
+
+.ActionsPost .Right{
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 0;
+    gap:20px;
+}
+
+.ActionsPost .Action{
+    cursor: pointer;
+}
+
+.ActionsPost .Action:active{
+    opacity: 0.8;
+}
+
+.InfoPost{
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+}
+
+@media only screen and (max-width: 470px) {
+    .InfoPost{
+        padding: 20px;
+    }
+}
+
+.InfoPost .Title{
+    display: flex;
+    flex-direction: row;
+    gap:40px;
+}
+
+@media only screen and (max-width: 235px) {
+    .InfoPost .Title{
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+.InfoPost .Name{
+    font-size: 14px;
+    line-height: 100%;
+    font-weight: 600;
+}
+
+.InfoPost .Date{
+    font-size: 14px;
+    line-height: 100%;
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+.InfoPost .Description{
+    font-size: 12px;
+    line-height: 150%;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.Whatsapp a{
+    display: flex;
+    flex-direction: row;
+    gap:10px;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+@media only screen and (max-width: 400px) {
+    .Whatsapp a{
+        font-size: 12px;
+    }   
+}
+
+.Whatsapp a:hover{
+    opacity: 0.8;
+}
+
+.Whatsapp .Icon{
+    border-radius:50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Page.dark .Whatsapp .Icon{
+    border: solid 1px #fff;
+}
+
+.Page.light .Whatsapp .Icon{
+    border: solid 1px #000;
+}
+
+@media only screen and (max-width: 400px) {
+    .Whatsapp .Icon{
+        width: 12px;
+        height: 12px;
+    }   
+}
+
+.Whatsapp span{
+    text-decoration: underline;
+    font-size: 12px;
+}
