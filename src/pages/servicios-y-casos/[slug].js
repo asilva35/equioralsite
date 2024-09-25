@@ -249,60 +249,60 @@ function ScreenCaso({ slug, staticdata }) {
   );
 }
 
-// export async function getStaticPaths() {
-//   const resp = await getPosts(1, 20);
+export async function getStaticPaths() {
+  const resp = await getPosts(1, 20);
 
-//   if (!resp || resp.records.length == 0)
-//     return {
-//       paths: [{ slug: '' }],
-//       fallback: 'blocking',
-//     };
-//   let totalPages = Number(resp.totalPages);
-//   let paths = [];
+  if (!resp || resp.records.length == 0)
+    return {
+      paths: [{ slug: '' }],
+      fallback: 'blocking',
+    };
+  let totalPages = Number(resp.totalPages);
+  let paths = [];
 
-//   resp.records.map((post, i) => {
-//     const slug = post.Url.split('/').pop();
-//     paths.push({
-//       params: {
-//         slug,
-//       },
-//     });
-//   });
+  resp.records.map((post, i) => {
+    const slug = post.Url.split('/').pop();
+    paths.push({
+      params: {
+        slug,
+      },
+    });
+  });
 
-//   if (totalPages)
-//     for (let i = 1; i < totalPages; i++) {
-//       let resp = await getPosts(i, 20);
-//       if (resp && resp.records.length > 0) {
-//         resp.records.map((post, i) => {
-//           const slug = post.Url.split('/').pop();
-//           paths.push({
-//             params: {
-//               slug,
-//             },
-//           });
-//         });
-//       }
-//     }
-//   return {
-//     paths,
-//     fallback: 'blocking',
-//   };
-// }
+  if (totalPages)
+    for (let i = 1; i < totalPages; i++) {
+      let resp = await getPosts(i, 20);
+      if (resp && resp.records.length > 0) {
+        resp.records.map((post, i) => {
+          const slug = post.Url.split('/').pop();
+          paths.push({
+            params: {
+              slug,
+            },
+          });
+        });
+      }
+    }
+  return {
+    paths,
+    fallback: 'blocking',
+  };
+}
 
-// export async function getStaticProps(data) {
-//   let recordsPost = await getPost(data.params.slug);
-//   let slug = recordsPost && recordsPost.length > 0 ? { ...recordsPost[0] } : {};
+export async function getStaticProps(data) {
+  let recordsPost = await getPost(data.params.slug);
+  let slug = recordsPost && recordsPost.length > 0 ? { ...recordsPost[0] } : {};
 
-//   let resp = await getPosts();
-//   let staticdata = resp && resp.records.length > 0 ? [...resp.records] : [];
+  let resp = await getPosts();
+  let staticdata = resp && resp.records.length > 0 ? [...resp.records] : [];
 
-//   return {
-//     props: {
-//       slug,
-//       staticdata,
-//     },
-//     revalidate: 10,
-//   };
-// }
+  return {
+    props: {
+      slug,
+      staticdata,
+    },
+    revalidate: 10,
+  };
+}
 
 export default ScreenCaso;
