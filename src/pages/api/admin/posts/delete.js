@@ -28,12 +28,9 @@ export default async function handler(req, res) {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
     if (!token)
-      return res
-        .status(401)
-        .send({
-          message: 'Something Wrong: Not authorized',
-          x: process.env.NEXTAUTH_SECRET,
-        });
+      return res.status(401).send({
+        message: 'Something Wrong: Not authorized',
+      });
 
     const { id: userid, role } = token;
 
