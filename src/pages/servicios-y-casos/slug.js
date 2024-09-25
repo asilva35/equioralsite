@@ -1,24 +1,28 @@
-import styles from '@/styles/ServiciosCasos.module.css';
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { AppContext } from '@/context/AppContext';
 import ImageComp from '@/components/ImageComp/ImageComp';
-import Link from 'next/link';
-import {
-  HeartIcon,
-  ShareIcon,
-  ThemeDarkIcon,
-  ThemeLightIcon,
-  WhatsappIcon,
-} from '@virtel/icons';
-import storiesData from '@/data/defaultStories.json';
-import Stories from '@/components/Stories/Stories';
-import Metaheader from '@/components/Metaheader/Metaheader';
 import Layout from '@/components/Layout/Layout';
-import { useSession } from 'next-auth/react';
-import { toast } from 'react-toastify';
+import Metaheader from '@/components/Metaheader/Metaheader';
 import Post from '@/components/Post/Post';
+import Stories from '@/components/Stories/Stories';
 import Whatsapp from '@/components/Whatsapp/Whatsapp';
-import { getPosts } from '@/ssg/posts/list';
+import { AppContext } from '@/context/AppContext';
+import styles from '@/styles/ServiciosCasos.module.css';
+import { Button } from '@nextui-org/react';
+import { ThemeDarkIcon, ThemeLightIcon, WhatsappIcon } from '@virtel/icons';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { useContext, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { getPosts, getPost } from '@/ssg/posts/list';
+
+async function getPostsClient(page = 1, pageSize = 20, search = '') {
+  const url = `${process.env.NEXT_PUBLIC_SITE_URL}/api/posts/list?page=${page}&pageSize=${pageSize}&search=${search}`;
+  return await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}
 
 async function deletePost(uid) {
   const url = `${process.env.NEXT_PUBLIC_SITE_URL}/api/admin/posts/delete?uid=${uid}`;
@@ -30,13 +34,29 @@ async function deletePost(uid) {
   });
 }
 
-export default function ServiciosCasos({ staticdata }) {
+function getDocHeight() {
+  var D = document;
+  return Math.max(
+    D.body.scrollHeight,
+    D.documentElement.scrollHeight,
+    D.body.offsetHeight,
+    D.documentElement.offsetHeight,
+    D.body.clientHeight,
+    D.documentElement.clientHeight
+  );
+}
+
+function ScreenCaso({ slug, staticdata }) {
   const stories = staticdata || [];
   const { data: session } = useSession();
   const { state, dispatch } = useContext(AppContext);
   const [screenWidth, setScreenWidth] = useState();
-  const [postsData, setPostsData] = useState(staticdata || []);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [extraPosts, setExtraPosts] = useState(staticdata || []);
+  const [loadingExtraPosts, setLoadingExtraPosts] = useState(false);
   const [postToEdit, setPostToEdit] = useState();
+  const [currentPost, setCurrentPost] = useState(slug || []);
   const toggleTheme = () => {
     dispatch({
       type: 'SET_THEME',
@@ -55,17 +75,37 @@ export default function ServiciosCasos({ staticdata }) {
   }, []);
 
   const fetchPosts = async () => {
-    const resp = await getPosts();
+    if (loadingExtraPosts) return;
+    setLoadingExtraPosts(true);
+    const loadedRecords = extraPosts;
+    const resp = await getPostsClient(currentPage + 1);
     if (resp.ok) {
       const resp_json = await resp.json();
-      setPostsData(resp_json.data.records);
+      const _extraPosts = resp_json.data;
+      const new_records = _extraPosts.records || [];
+      setExtraPosts(loadedRecords.concat(new_records));
+      setCurrentPage(currentPage + 1);
+      setTotalPages(_extraPosts.totalPages);
+      setLoadingExtraPosts(false);
     }
   };
 
   useEffect(() => {
-    //fetchPosts();
-  }, []);
-
+    if (!document) return;
+    const onScrollBottom = (evt) => {
+      if (
+        window.innerHeight + window.scrollY >=
+        document.body.offsetHeight - 10
+      ) {
+        if (loadingExtraPosts) return;
+        fetchPosts();
+      }
+    };
+    window.addEventListener('scroll', onScrollBottom);
+    return () => {
+      window.removeEventListener('scroll', onScrollBottom);
+    };
+  }, [currentPage, loadingExtraPosts]);
   const onDeletePost = async (post) => {
     const resp = await deletePost(post._uid);
     if (resp.ok) {
@@ -76,7 +116,6 @@ export default function ServiciosCasos({ staticdata }) {
       toast.error('Ocurrio un error');
     }
   };
-
   const onCloseAddPost = () => {
     setPostToEdit(null);
   };
@@ -128,18 +167,38 @@ export default function ServiciosCasos({ staticdata }) {
           </div>
           <div className={styles.MainContent}>
             <div className={styles.Container}>
-              {postsData &&
-                postsData.map((post, i) => (
-                  <Post
-                    key={i}
-                    post={post}
-                    theme={state.theme}
-                    session={session}
-                    onEdit={(post) => setPostToEdit(post)}
-                    onDelete={onDeletePost}
-                  />
-                ))}
-              {!postsData && (
+              <Post
+                post={currentPost}
+                theme={state.theme}
+                session={session}
+                onEdit={(post) => setPostToEdit(post)}
+                onDelete={onDeletePost}
+              />
+
+              {extraPosts.length > 0 &&
+                extraPosts.map(
+                  (post, i) =>
+                    post._uid !== currentPost._uid && (
+                      <Post
+                        post={post}
+                        theme={state.theme}
+                        session={session}
+                        onEdit={(post) => setPostToEdit(post)}
+                        onDelete={onDeletePost}
+                        key={i}
+                      />
+                    )
+                )}
+              {extraPosts.length > 0 && currentPage < totalPages && (
+                <Button
+                  className={styles.BtnLoadMore}
+                  onClick={fetchPosts}
+                  isLoading={loadingExtraPosts}
+                >
+                  Cargar Más Casos
+                </Button>
+              )}
+              {extraPosts.length == 0 && (
                 <div className={styles.Post}>
                   <div className={styles.HeaderPost}>
                     <div className={`${styles.LogoSmall} skeleton`}></div>
@@ -190,14 +249,60 @@ export default function ServiciosCasos({ staticdata }) {
   );
 }
 
-export async function getStaticProps() {
-  let resp = await getPosts();
-  let staticdata = resp && resp.records.length > 0 ? [...resp.records] : [];
+// export async function getStaticPaths() {
+//   const resp = await getPosts(1, 20);
 
-  return {
-    props: {
-      staticdata,
-    },
-    revalidate: 10,
-  };
-}
+//   if (!resp || resp.records.length == 0)
+//     return {
+//       paths: [{ slug: '' }],
+//       fallback: 'blocking',
+//     };
+//   let totalPages = Number(resp.totalPages);
+//   let paths = [];
+
+//   resp.records.map((post, i) => {
+//     const slug = post.Url.split('/').pop();
+//     paths.push({
+//       params: {
+//         slug,
+//       },
+//     });
+//   });
+
+//   if (totalPages)
+//     for (let i = 1; i < totalPages; i++) {
+//       let resp = await getPosts(i, 20);
+//       if (resp && resp.records.length > 0) {
+//         resp.records.map((post, i) => {
+//           const slug = post.Url.split('/').pop();
+//           paths.push({
+//             params: {
+//               slug,
+//             },
+//           });
+//         });
+//       }
+//     }
+//   return {
+//     paths,
+//     fallback: 'blocking',
+//   };
+// }
+
+// export async function getStaticProps(data) {
+//   let recordsPost = await getPost(data.params.slug);
+//   let slug = recordsPost && recordsPost.length > 0 ? { ...recordsPost[0] } : {};
+
+//   let resp = await getPosts();
+//   let staticdata = resp && resp.records.length > 0 ? [...resp.records] : [];
+
+//   return {
+//     props: {
+//       slug,
+//       staticdata,
+//     },
+//     revalidate: 10,
+//   };
+// }
+
+export default ScreenCaso;

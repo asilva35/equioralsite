@@ -105,7 +105,6 @@ export default function Post({ theme, post, session, onEdit, onDelete }) {
             />
           </div>
           <div className={styles.Action}>
-            {/* <ShareIcon fill={theme === 'dark' ? '#fff' : '#000'} size={24} /> */}
             <SharePost
               theme={theme}
               url={`${process.env.NEXT_PUBLIC_SITE_URL}/${post.Url}`}
@@ -124,9 +123,7 @@ export default function Post({ theme, post, session, onEdit, onDelete }) {
       </div>
       <div className={styles.InfoPost}>
         <div className={styles.Title}>
-          <div className={styles.Name}>
-            <Link href={post.Url}>{post.Title}</Link>
-          </div>
+          <div className={styles.Name}>{post.Title}</div>
           <div className={styles.Date}>{getFormatedDate(post.Date)}</div>
         </div>
         <div

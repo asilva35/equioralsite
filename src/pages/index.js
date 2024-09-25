@@ -4,7 +4,6 @@ import Metaheader from '@/components/Metaheader/Metaheader';
 import Stories from '@/components/Stories/Stories';
 import { AppContext } from '@/context/AppContext';
 import styles from '@/styles/Home.module.css';
-import { WhatsappIcon } from '@virtel/icons';
 import Link from 'next/link';
 import { useContext } from 'react';
 import { useSession } from 'next-auth/react';
@@ -12,6 +11,7 @@ import Whatsapp from '@/components/Whatsapp/Whatsapp';
 import { getPosts } from '@/ssg/posts/list';
 
 export default function Home({ staticdata }) {
+  const stories = staticdata || [];
   const { data: session } = useSession();
   const { state, dispatch } = useContext(AppContext);
   return (
@@ -81,7 +81,7 @@ export default function Home({ staticdata }) {
                 theme={state.theme}
                 edgeOffset={40}
                 mobileBreakpoint={767}
-                data={staticdata}
+                data={stories}
                 showName={true}
                 showLinkLabel={false}
                 storyFlex="column"

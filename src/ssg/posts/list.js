@@ -56,10 +56,11 @@ async function getPosts(page = 1, pageSize = 20, search = '') {
   resp.records.map((_record) => {
     delete _record._id;
     delete _record.updatedAt;
-    _record.Photos.map((photo) => {
-      delete photo.private_url;
-      delete photo.key;
-    });
+    if (_record.Photos && _record.Photos.length > 0)
+      _record.Photos.map((photo) => {
+        delete photo.private_url;
+        delete photo.key;
+      });
   });
 
   return { ...resp };
@@ -74,10 +75,11 @@ async function getPost(slug) {
   resp.records.map((_record) => {
     delete _record._id;
     delete _record.updatedAt;
-    _record.Photos.map((photo) => {
-      delete photo.private_url;
-      delete photo.key;
-    });
+    if (_record.Photos && _record.Photos.length > 0)
+      _record.Photos.map((photo) => {
+        delete photo.private_url;
+        delete photo.key;
+      });
   });
 
   return resp.records;

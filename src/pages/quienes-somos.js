@@ -10,6 +10,7 @@ import { useContext } from 'react';
 import { getPosts } from '@/ssg/posts/list';
 
 export default function QuienesSomos({ staticdata }) {
+  const stories = staticdata || [];
   const { data: session } = useSession();
   const { state, dispatch } = useContext(AppContext);
   return (
@@ -69,7 +70,7 @@ export default function QuienesSomos({ staticdata }) {
                 theme={state.theme}
                 edgeOffset={40}
                 mobileBreakpoint={600}
-                data={staticdata}
+                data={stories}
                 showName={true}
                 showLinkLabel={false}
                 storyFlex="column"
