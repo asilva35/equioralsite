@@ -30,7 +30,10 @@ export default async function handler(req, res) {
     if (!token)
       return res
         .status(401)
-        .send({ message: 'Something Wrong: Not authorized' });
+        .send({
+          message: 'Something Wrong: Not authorized',
+          x: process.env.NEXTAUTH_SECRET,
+        });
 
     const { id: userid, role } = token;
 
