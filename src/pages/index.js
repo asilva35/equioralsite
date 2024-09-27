@@ -21,9 +21,9 @@ export default function Home({ staticdata }) {
         <div className={`${styles.Home} ${styles[state.theme]}`}>
           <div className={styles.BG}>
             <ImageComp
-              src="/assets/images/bg-home-lg-02-c.png?v=0.4"
-              width={683}
-              height={707}
+              src="/assets/images/bg-home-lg-06.png?v=0.6"
+              width={840}
+              height={1264}
               alt=""
               priority
             />

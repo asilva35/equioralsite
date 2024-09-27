@@ -3,7 +3,7 @@ import FormData from 'form-data';
 import fetch from 'node-fetch';
 import fs from 'fs';
 import { getToken } from 'next-auth/jwt';
-import { sanitize } from '@/utils/utils';
+import { sanitize, generateUUID } from '@/utils/utils';
 
 export const config = {
   api: {
@@ -33,16 +33,35 @@ function getSlug(texto) {
   return url.trim('');
 }
 
-async function createRecord(fields) {
+async function createRecord(fields, files) {
   const formData = new FormData();
   formData.append('_uid', sanitize(fields._uid[0]));
   formData.append('Title', sanitize(fields.title[0]));
   formData.append('Description', sanitize(fields.description[0]));
   formData.append('Date', sanitize(fields.date[0]));
+  formData.append('Photos', `Photo|${fields.count_photos[0]}`);
   formData.append(
     'Url',
     sanitize(`/servicios-y-casos/${getSlug(fields.title[0])}`)
   );
+
+  const count_photos = Number.parseInt(fields.count_photos[0]);
+
+  for (var i = 0; i < count_photos; i++) {
+    formData.append(
+      `Photo-${i + 1}`,
+      fs.createReadStream(files[`Photo-${i + 1}`][0].filepath)
+    );
+    formData.append(
+      `Photo-${i + 1}-name`,
+      files[`Photo-${i + 1}`][0].originalFilename
+    );
+    formData.append(
+      `Photo-${i + 1}-mimetype`,
+      files[`Photo-${i + 1}`][0].mimetype
+    );
+    formData.append(`Photo-${i + 1}-id`, generateUUID(6));
+  }
 
   try {
     const url = `${process.env.VIDASHY_URL}${process.env.VIDASHY_ORGANIZATION}/${process.env.VIDASHY_DATABASE}/posts`;
@@ -99,6 +118,14 @@ export default async function handler(req, res) {
       validation.date = 'Field Required';
     }
 
+    if (
+      !fields.count_photos ||
+      !fields.count_photos[0] ||
+      fields.count_photos[0] === '0'
+    ) {
+      validation.Photos = 'Field Required';
+    }
+
     //EVALUATE IF VALIDATION IS NOT EMPTY
     if (Object.keys(validation).length > 0) {
       return res.status(500).send({
@@ -107,7 +134,7 @@ export default async function handler(req, res) {
       });
     }
 
-    const response = await createRecord(fields);
+    const response = await createRecord(fields, files);
 
     if (!response)
       return res

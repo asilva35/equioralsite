@@ -67,12 +67,26 @@
 
   .PhotoPreview{
     width: 100px;
-    height: 100px;
+    height: 130px;
     overflow: hidden;
+    position: relative;
+    padding-top: 25px;
   }
 
   .PhotoPreview img{
     width: 100%;
     height: auto;
     object-fit: cover;
+  }
+
+  .PhotoPreview .DeletePhoto{
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0px;
+    border: solid 1px black;
+    border-radius: 50%;
+    padding: 3px;
+    width: 24px;
+    height: 24px;
   }

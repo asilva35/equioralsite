@@ -43,7 +43,7 @@
     position: absolute;
     top: 50%;
     left: 60%;
-    transform: translate(-50%,-50%);
+    transform: translate(-55%,-60%);
     max-height: calc(100vh - 104px);
     width: 40vw;
     min-width: 160px;
@@ -76,7 +76,7 @@
 
 .BG img{
     height: auto;
-    width: 100%;
+    width: 97%;
     object-fit: cover;
 }
 

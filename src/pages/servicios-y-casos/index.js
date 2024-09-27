@@ -72,6 +72,7 @@ export default function ServiciosCasos({ staticdata }) {
       toast.success(
         'Se Removio el Post, por favor Refresque la página para ver los cambios'
       );
+      location.reload();
     } else {
       toast.error('Ocurrio un error');
     }

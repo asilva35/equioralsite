@@ -112,6 +112,7 @@ function ScreenCaso({ slug, staticdata }) {
       toast.success(
         'Se Removio el Post, por favor Refresque la página para ver los cambios'
       );
+      location.href = '/servicios-y-casos';
     } else {
       toast.error('Ocurrio un error');
     }

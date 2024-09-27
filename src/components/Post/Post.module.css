@@ -203,6 +203,7 @@
     font-size: 14px;
     line-height: 100%;
     font-weight: 600;
+    cursor: pointer;
 }
 
 .InfoPost .Date{
@@ -210,6 +211,7 @@
     line-height: 100%;
     font-weight: 400;
     opacity: 0.8;
+    cursor: pointer;
 }
 
 .InfoPost .Description{

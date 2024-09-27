@@ -13,7 +13,7 @@ import {
 } from '@nextui-org/react';
 import Whatsapp from '../Whatsapp/Whatsapp';
 import SharePost from '../SharePost/SharePost';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const addLike = async (_uid) => {
   const url = `${process.env.NEXT_PUBLIC_SITE_URL}/api/posts/addlike/?_uid=${_uid}`;
@@ -23,6 +23,7 @@ const addLike = async (_uid) => {
 export default function Post({ theme, post, session, onEdit, onDelete }) {
   const [extendDescription, setExtendDescription] = useState(false);
   const [liked, setLiked] = useState(false);
+  const router = useRouter();
 
   const getFormatedDate = (date_str) => {
     return formatDate(date_str);
@@ -42,6 +43,10 @@ export default function Post({ theme, post, session, onEdit, onDelete }) {
     if (liked) return;
     addLike(post._uid);
     setLiked(true);
+  };
+
+  const onClickPost = (url) => {
+    router.push(url);
   };
 
   return (
@@ -107,7 +112,7 @@ export default function Post({ theme, post, session, onEdit, onDelete }) {
           <div className={styles.Action}>
             <SharePost
               theme={theme}
-              url={`${process.env.NEXT_PUBLIC_SITE_URL}/${post.Url}`}
+              url={`${process.env.NEXT_PUBLIC_SITE_URL}${post.Url}`}
             />
           </div>
         </div>
@@ -123,8 +128,12 @@ export default function Post({ theme, post, session, onEdit, onDelete }) {
       </div>
       <div className={styles.InfoPost}>
         <div className={styles.Title}>
-          <div className={styles.Name}>{post.Title}</div>
-          <div className={styles.Date}>{getFormatedDate(post.Date)}</div>
+          <div className={styles.Name} onClick={() => onClickPost(post.Url)}>
+            {post.Title}
+          </div>
+          <div className={styles.Date} onClick={() => onClickPost(post.Url)}>
+            {getFormatedDate(post.Date)}
+          </div>
         </div>
         <div
           className={styles.Description}

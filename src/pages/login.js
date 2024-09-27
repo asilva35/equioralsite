@@ -11,9 +11,9 @@ export default function LoginScreen() {
       <div className={`${style.LoginScreen}`}>
         <div className={`${style.bg}`}>
           <Image
-            src="/assets/images/bg-login.jpg?v=0.1"
-            width={952}
-            height={627}
+            src="/assets/images/bg-login-02-md.jpg?v=0.2"
+            width={640}
+            height={800}
             alt=""
           />
         </div>

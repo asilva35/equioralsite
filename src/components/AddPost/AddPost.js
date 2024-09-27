@@ -5,7 +5,7 @@ import {
 } from '@internationalized/date';
 import { Button, DateInput, Input, Textarea } from '@nextui-org/react';
 import { I18nProvider } from '@react-aria/i18n';
-import { AddIcon } from '@virtel/icons';
+import { AddIcon, DeleteIcon } from '@virtel/icons';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import styles from './AddPost.module.css';
@@ -18,14 +18,12 @@ async function savePost(uid, title, description, date, photos) {
   body.append('title', title);
   body.append('description', description);
   body.append('date', date);
-  if (!uid) {
-    let count_photos = 0;
-    photos.map((p) => {
-      body.append(p.name, p.photo);
-      count_photos++;
-    });
-    body.append('count_photos', count_photos);
-  }
+  let count_photos = 0;
+  photos.map((p) => {
+    body.append(p.name, p.photo);
+    count_photos++;
+  });
+  body.append('count_photos', count_photos);
   return await fetch(url, {
     method: 'POST',
     body,
@@ -55,6 +53,7 @@ export default function AddPost({ postToEdit, onClose }) {
       setDescription('');
       setSavingPost(false);
       toast.success('Servicio / Caso Publicado');
+      location.reload();
     } else {
       toast.error('Ocurrio un problema intente nuevamente');
       setSavingPost(false);
@@ -82,20 +81,63 @@ export default function AddPost({ postToEdit, onClose }) {
     setPhotosPreview((c) => [...c, preview]);
   };
 
+  const getFileFromUrl = async (url) => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SITE_URL}/api/admin/posts/getimage/?url=${url}`
+      );
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch image from ${url}`);
+      }
+
+      const blob = await response.blob();
+      const filename = url.split('/').pop();
+      const file = new File([blob], filename, { type: blob.type });
+
+      return file;
+    } catch (error) {
+      console.error(`Error creating File object for ${url}:`, error);
+    }
+  };
+  const populatePostToEdit = async () => {
+    setTitle(postToEdit.Title);
+    setDescription(postToEdit.Description);
+    setDate(parseAbsoluteToLocal(postToEdit.Date));
+    setUId(postToEdit._uid);
+    const _photos = [];
+    const previews = [];
+    for (var i = 0; i < postToEdit.Photos.length; i++) {
+      const photo = postToEdit.Photos[i];
+      previews.push(photo.url);
+      const file = await getFileFromUrl(photo.url);
+      _photos.push({
+        name: `Photo-${i + 1}`,
+        photo: file,
+      });
+    }
+    setPhotos(_photos);
+    setPhotosPreview(previews);
+    setShowModal((c) => c + 1);
+  };
+
   useEffect(() => {
     if (postToEdit) {
-      setTitle(postToEdit.Title);
-      setDescription(postToEdit.Description);
-      setDate(parseAbsoluteToLocal(postToEdit.Date));
-      setUId(postToEdit._uid);
-      const previews = [];
-      postToEdit.Photos.map((photo) => {
-        previews.push(photo.url);
-      });
-      setPhotosPreview(previews);
-      setShowModal((c) => c + 1);
+      populatePostToEdit();
     }
   }, [postToEdit]);
+
+  const onDeletePhoto = (i) => {
+    const _photos = [...photos];
+    const _photosPreview = [...photosPreview];
+    _photos.splice(i, 1);
+    _photosPreview.splice(i, 1);
+    _photos.map((p, ii) => {
+      p.name = `Photo-${ii + 1}`;
+    });
+    setPhotos(_photos);
+    setPhotosPreview(_photosPreview);
+  };
 
   return (
     <>
@@ -112,6 +154,9 @@ export default function AddPost({ postToEdit, onClose }) {
           setTitle('');
           setDescription('');
           setSavingPost(false);
+          setPhotos([]);
+          setPhotosPreview([]);
+          setUId('');
           if (onClose) onClose();
         }}
         allowSave={allowSave}
@@ -166,15 +211,19 @@ export default function AddPost({ postToEdit, onClose }) {
             <div className={styles.PhotoPreviews}>
               {photosPreview.map((preview, i) => (
                 <div className={styles.PhotoPreview} key={i}>
+                  <DeleteIcon
+                    className={styles.DeletePhoto}
+                    onClick={() => onDeletePhoto(i)}
+                    fill={'black'}
+                    size={'12'}
+                  />
                   <img src={preview} alt="" />
                 </div>
               ))}
             </div>
-            {!uid && (
-              <label htmlFor="file" className={styles.MediaUploadInputLabel}>
-                Agregar Foto
-              </label>
-            )}
+            <label htmlFor="file" className={styles.MediaUploadInputLabel}>
+              Agregar Foto
+            </label>
             {validation.Photos && (
               <p className="text-danger">{validation.Photos}</p>
             )}
